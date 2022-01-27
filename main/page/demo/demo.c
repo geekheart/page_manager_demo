@@ -1,8 +1,10 @@
 #include "demo.h"
+#include "esp_log.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 static demo_t demo;
+static const char* tag = "DEMO";
 
 static void demo_event_cb(lv_obj_t *obj, lv_event_t event)
 {
@@ -10,7 +12,7 @@ static void demo_event_cb(lv_obj_t *obj, lv_event_t event)
     page_manager_t *manager = page_base->manager;
     if (event == LV_EVENT_CLICKED)
     {
-        pm_push(manager, "temp", NULL);
+        pm_push(manager, "template", NULL);
     }
 }
 
@@ -23,6 +25,7 @@ static void onTimerUpdate(lv_task_t *timer)
 
 static void on_custom_attr_config(page_base_t *self)
 {
+    ESP_LOGI(tag, "on custom attr config");
     page_set_custom_root_event_cb(self, demo_event_cb);
     page_set_custom_auto_cache_enable(self, true);
     page_set_custom_load_anim_type(self, LOAD_ANIM_OVER_BOTTOM, 1000, lv_anim_path_overshoot);
@@ -31,6 +34,7 @@ static void on_custom_attr_config(page_base_t *self)
 /* Page load */
 static void on_view_load(page_base_t *self)
 {
+    ESP_LOGI(tag, "on view load");
     demo.demo_view = demo_view_create(self->root);
     demo_view_set_title(demo.demo_view, self->name);
 }
@@ -38,11 +42,13 @@ static void on_view_load(page_base_t *self)
 /* Page load complete */
 static void on_view_did_load(page_base_t *self)
 {
+    ESP_LOGI(tag, "on view did load");
 }
 
 /* Page will be displayed soon  */
 static void on_view_will_appear(page_base_t *self)
 {
+    ESP_LOGI(tag, "on view_will_appear");
     demo.param.color = LV_COLOR_WHITE;
     demo.param.time = 1000;
     demo.task = lv_task_create(onTimerUpdate, demo.param.time, LV_TASK_PRIO_HIGH, NULL);
@@ -51,21 +57,25 @@ static void on_view_will_appear(page_base_t *self)
 /* The page is displayed  */
 static void on_view_did_appear(page_base_t *self)
 {
+    ESP_LOGI(tag, "on view did appear");
 }
 
 /* Page is about to disappear */
 static void on_view_will_disappear(page_base_t *self)
 {
+    ESP_LOGI(tag, "on view will disappear");
 }
 
 /* Page disappeared complete  */
 static void on_view_did_disappear(page_base_t *self)
 {
+    ESP_LOGI(tag, "on view did disappear");
 }
 
 /* Page uninstall complete  */
 static void on_view_did_unload(page_base_t *self)
 {
+    ESP_LOGI(tag, "on view did unload");
 }
 
 static page_vtable_t page_param = {
@@ -79,10 +89,10 @@ static page_vtable_t page_param = {
     .on_view_did_unload = on_view_did_unload,
 };
 
-page_vtable_t demo_create(const char *name)
+page_vtable_t* demo_create(const char *name)
 {
 
-    demo.page_param = page_param;
+    demo.page_param = &page_param;
     demo.name = name;
 
     return demo.page_param;

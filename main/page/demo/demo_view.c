@@ -10,6 +10,7 @@ demo_view_t *demo_view_create(lv_obj_t *root)
     demo_view->ui.label_title = lv_label_create(root, NULL);
     lv_obj_align(demo_view->ui.label_title, root,LV_ALIGN_IN_TOP_MID, 0, 20);
     lv_label_set_text(demo_view->ui.label_title, "");
+    lv_obj_set_auto_realign(demo_view->ui.label_title, true);
 
     demo_view->ui.label_tick = lv_label_create(root, NULL);
     lv_label_set_text(demo_view->ui.label_tick, "");

@@ -74,10 +74,10 @@ static page_vtable_t page_param = {
     .on_view_did_unload = on_view_did_unload,
 };
 
-page_vtable_t template_create(const char *name)
+page_vtable_t* template_create(const char *name)
 {
 
-    template.page_param = page_param;
+    template.page_param = &page_param;
     template.name = name;
 
     return template.page_param;

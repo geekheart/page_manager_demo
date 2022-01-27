@@ -9,7 +9,7 @@
 typedef struct 
 {
     const char* name;
-    page_vtable_t page_param;
+    page_vtable_t* page_param;
     demo_view_t* demo_view;
     lv_task_t* task;
     struct
@@ -19,4 +19,4 @@ typedef struct
     } param;
 }demo_t;
 
-page_vtable_t demo_create(const char* name);
+page_vtable_t* demo_create(const char* name);

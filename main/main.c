@@ -19,8 +19,7 @@
 #include "freertos/semphr.h"
 #include "page_manager.h"
 #include "esp_system.h"
-#include "demo/demo.h"
-#include "template/template.h"
+#include "page/page.h"
 
 /* Littlevgl specific */
 #ifdef LV_LVGL_H_INCLUDE_SIMPLE
@@ -162,13 +161,8 @@ static void lv_tick_task(void *arg)
 
 static void create_demo_application(void)
 {
-    page_manager_t *manager = page_manager_create();
-
-    pm_install(manager, "demo", demo_create("demo"));
-    pm_install(manager, "temp", template_create("temp"));
-
-    pm_set_global_load_anim_type(manager, LOAD_ANIM_OVER_TOP, 500, lv_anim_path_overshoot);
-
-    pm_push(manager, "demo", NULL);
-    
+    page_init();
+    page_install("demo");
+    page_install("template");
+    page_start("demo");
 }
