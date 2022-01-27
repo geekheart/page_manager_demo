@@ -28,8 +28,8 @@ static void on_view_load(page_base_t *self)
     char count_str[15];
     sprintf(count_str, "count:%d", template_get_count());
     template.template_view = template_view_create(self->root);
-    lv_label_set_text(template.template_view->ui.labelTitle, self->name);
-    lv_label_set_text(template.template_view->ui.labelTick, count_str);
+    template_view_set_title(template.template_view, self->name);
+    template_view_set_count(template.template_view, count_str);
 }
 
 /* Page load complete */

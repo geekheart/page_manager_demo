@@ -18,7 +18,7 @@ static void onTimerUpdate(lv_task_t *timer)
 {
     char tick[20];
     sprintf(tick, "tick:%d", demo_model_get_tick());
-    demo_view_set_title(demo.demo_view, tick);
+    demo_view_set_tick(demo.demo_view, tick);
 }
 
 static void on_custom_attr_config(page_base_t *self)

@@ -21,7 +21,7 @@ demo_view_t *demo_view_create(lv_obj_t *root)
 
 void demo_view_set_title(demo_view_t* self, const char* title)
 {
-    lv_label_set_text(self->ui.label_tick, title);
+    lv_label_set_text(self->ui.label_title, title);
 }
 
 void demo_view_set_tick(demo_view_t* self, const char* tick)
